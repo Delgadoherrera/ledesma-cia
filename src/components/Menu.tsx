@@ -8,12 +8,26 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
-} from '@ionic/react';
+} from "@ionic/react";
 
-import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
-import './Menu.css';
-
+import { useLocation } from "react-router-dom";
+import {
+  archiveOutline,
+  settings,
+  bookmarkOutline,
+  heartOutline,
+  hammer,
+  mailOutline,
+  mailSharp,
+  body,
+  paperPlaneSharp,
+  trashOutline,
+  trashSharp,
+  warningOutline,
+  person,
+  logoUsd,
+} from "ionicons/icons";
+import "./Menu.css";
 interface AppPage {
   url: string;
   iosIcon: string;
@@ -23,44 +37,46 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: 'Inbox',
-    url: '/page/Inbox',
+    title: "Cashflow",
+    url: "/page/Cashflow",
+    iosIcon: logoUsd,
+    mdIcon: logoUsd,
+  },
+  {
+    title: "Proveedores",
+    url: "/page/Proveedores",
     iosIcon: mailOutline,
-    mdIcon: mailSharp
+    mdIcon: person,
   },
   {
-    title: 'Outbox',
-    url: '/page/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    title: "Clientes",
+    url: "/page/Clientes",
+    iosIcon: body,
+    mdIcon: body,
   },
   {
-    title: 'Favorites',
-    url: '/page/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: "Stock",
+    url: "/page/Stock",
+    iosIcon: hammer,
+    mdIcon: hammer,
   },
+
   {
-    title: 'Archived',
-    url: '/page/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
+    title: "Configuración",
+    url: "/page/Configuración",
+    iosIcon: settings,
+    mdIcon: settings,
   },
+
   {
-    title: 'Trash',
-    url: '/page/Trash',
+    title: "Papelera",
+    url: "/page/Papelera",
     iosIcon: trashOutline,
-    mdIcon: trashSharp
+    mdIcon: trashSharp,
   },
-  {
-    title: 'Spam',
-    url: '/page/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
-  }
 ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+const labels = [, "Maria", "Marta", "Cerralima", "Selalima", "Conlamina"];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -69,13 +85,26 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>LEDESMA Cia.</IonListHeader>
+          <IonNote>hola@usuario.com</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                <IonItem
+                  className={
+                    location.pathname === appPage.url ? "selected" : ""
+                  }
+                  routerLink={appPage.url}
+                  routerDirection="none"
+                  lines="none"
+                  detail={false}
+                >
+                  <IonIcon
+                    aria-hidden="true"
+                    slot="start"
+                    ios={appPage.iosIcon}
+                    md={appPage.mdIcon}
+                  />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
@@ -84,7 +113,7 @@ const Menu: React.FC = () => {
         </IonList>
 
         <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
+          <IonListHeader>Próximas entregas:</IonListHeader>
           {labels.map((label, index) => (
             <IonItem lines="none" key={index}>
               <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
