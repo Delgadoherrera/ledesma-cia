@@ -1,16 +1,24 @@
-import './ExploreContainer.css';
+import { IonContent } from "@ionic/react";
+import "./ExploreContainer.css";
+import Stock from "./Stock";
 
 interface ContainerProps {
   name: string;
 }
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
-  return (
-    <div id="container">
-      <strong>{name}</strong>
-      {/* <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p> */}
-    </div>
-  );
+  switch (name) {
+    case "Stock":
+      return (
+        <IonContent>
+          <Stock name={"stock"} />
+        </IonContent>
+      );
+      break;
+
+    default:
+      break;
+  }
 };
 
 export default ExploreContainer;
