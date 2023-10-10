@@ -36,7 +36,7 @@ interface AppPage {
 }
 
 const appPages: AppPage[] = [
-  {
+  /*  {
     title: "Cashflow",
     url: "/page/Cashflow",
     iosIcon: logoUsd,
@@ -53,7 +53,7 @@ const appPages: AppPage[] = [
     url: "/page/Clientes",
     iosIcon: body,
     mdIcon: body,
-  },
+  }, */
   {
     title: "Stock",
     url: "/page/Stock",
@@ -61,7 +61,7 @@ const appPages: AppPage[] = [
     mdIcon: hammer,
   },
 
-  {
+  /*   {
     title: "Configuración",
     url: "/page/Configuración",
     iosIcon: settings,
@@ -73,10 +73,10 @@ const appPages: AppPage[] = [
     url: "/page/Papelera",
     iosIcon: trashOutline,
     mdIcon: trashSharp,
-  },
+  }, */
 ];
 
-const labels = [, "Maria", "Marta", "Cerralima", "Selalima", "Conlamina"];
+const labels = [,/* "Maria", "Marta", "Cerralima", "Selalima", "Conlamina" */];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -113,7 +113,8 @@ const Menu: React.FC = () => {
         </IonList>
 
         <IonList id="labels-list">
-          <IonListHeader>Próximas entregas:</IonListHeader>
+          {/*           <IonListHeader>Próximas entregas:</IonListHeader>
+           */}{" "}
           {labels.map((label, index) => (
             <IonItem lines="none" key={index}>
               <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />

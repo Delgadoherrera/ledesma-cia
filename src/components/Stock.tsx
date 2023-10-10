@@ -17,6 +17,11 @@ const ExploreContainer: React.FC<ContainerProps> = ({}) => {
     console.log("tab selected", tabSelected);
   }, [tabSelected]);
 
+  const objetoFecha = Date.now();
+  const nowDate = new Date(objetoFecha);
+  let fechaMensaje = nowDate.toLocaleDateString("en-ZA");
+
+  
   return (
     <>
       <StockNav tabSelected={setTabSelected} />

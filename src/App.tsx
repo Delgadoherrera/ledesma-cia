@@ -34,7 +34,7 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/page/Configuración" />
+              <Redirect to="/page/Stock" />
             </Route>
             <Route path="/page/:name" exact={true}>
               <Page />

@@ -2,23 +2,22 @@ import * as React from "react";
 1;
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextareaAutosize,
+} from "@mui/material";
 import { ButtonBase } from "@mui/material";
 import { IonBreadcrumb, IonHeader, IonItem } from "@ionic/react";
 import { ProductServices } from "../../Services/ProductService";
 
 export default function CargaMateriales() {
   const [values, setValues] = React.useState({
-    codigo: "",
-    articulo: "",
     descripcion: "",
-    largo: "",
-    ancho: "",
-    alto: "",
-    litros: 0,
+    medida: "",
     unidadMedida: "",
-    kilogramos: 0,
-    cantidad: 0,
   });
   const productService = new ProductServices();
 
@@ -44,36 +43,12 @@ export default function CargaMateriales() {
       >
         <TextField
           id="outlined-basic"
-          label="Articulo"
-          variant="outlined"
-          onChange={(e) => setValues({ ...values, articulo: e.target.value })}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Codigo"
-          variant="outlined"
-          onChange={(e) => setValues({ ...values, codigo: e.target.value })}
-        />
-        <TextField
-          id="outlined-basic"
           label="Descripción"
           variant="outlined"
           onChange={(e) =>
             setValues({ ...values, descripcion: e.target.value })
           }
         />
-        {/*      <TextField
-        id="outlined-basic"
-        label="Largo"
-        variant="outlined"
-        onChange={(e) => setValues({ ...values, largo: e.target.value })}
-      />
-      <TextField
-        id="outlined-basic"
-        label="Ancho"
-        variant="outlined"
-        onChange={(e) => setValues({ ...values, ancho: e.target.value })}
-      /> */}
 
         <Select
           labelId="demo-simple-select-label"
@@ -94,21 +69,9 @@ export default function CargaMateriales() {
           <>
             <TextField
               id="outlined-basic"
-              label="Largo"
+              label="Medida"
               variant="outlined"
-              onChange={(e) => setValues({ ...values, largo: e.target.value })}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Ancho"
-              variant="outlined"
-              onChange={(e) => setValues({ ...values, ancho: e.target.value })}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Alto"
-              variant="outlined"
-              onChange={(e) => setValues({ ...values, alto: e.target.value })}
+              onChange={(e) => setValues({ ...values, medida: e.target.value })}
             />
           </>
         )}
@@ -117,58 +80,35 @@ export default function CargaMateriales() {
           <>
             <TextField
               id="outlined-basic"
-              label="Largo"
+              label="Medida"
               variant="outlined"
-              onChange={(e) => setValues({ ...values, largo: e.target.value })}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Ancho"
-              variant="outlined"
-              onChange={(e) => setValues({ ...values, ancho: e.target.value })}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Alto"
-              variant="outlined"
-              onChange={(e) => setValues({ ...values, alto: e.target.value })}
+              onChange={(e) => setValues({ ...values, medida: e.target.value })}
             />
           </>
         )}
 
         {values.unidadMedida === "Lts" && (
-          <>
-            <TextField
-              id="outlined-basic"
-              label="Cantidad de litros"
-              variant="outlined"
-              onChange={(e) =>
-                setValues({ ...values, litros: parseFloat(e.target.value) })
-              }
-            />
-          </>
-        )}
+        <>
+        <TextField
+          id="outlined-basic"
+          label="Medida"
+          variant="outlined"
+          onChange={(e) => setValues({ ...values, medida: e.target.value })}
+        />
+      </>
+    )}
 
         {values.unidadMedida === "Kg" && (
           <>
-            <TextField
-              id="outlined-basic"
-              label="Cantidad de kilogramos"
-              variant="outlined"
-              onChange={(e) =>
-                setValues({ ...values, kilogramos: parseFloat(e.target.value) })
-              }
-            />
-          </>
-        )}
-        <TextField
-          id="outlined-basic"
-          label="Unidades"
-          variant="outlined"
-          onChange={(e) =>
-            setValues({ ...values, cantidad: parseInt(e.target.value) })
-          }
-        />
+          <TextField
+            id="outlined-basic"
+            label="Medida"
+            variant="outlined"
+            onChange={(e) => setValues({ ...values, medida: e.target.value })}
+          />
+        </>
+      )}
+
         <Button variant="outlined" onClick={() => handleSend(values)}>
           Enviar
         </Button>

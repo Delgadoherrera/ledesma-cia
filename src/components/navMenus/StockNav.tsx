@@ -18,13 +18,12 @@ function ButtonGroup(
         title="Catálogo de materiales"
         onEnter={() => tabSelected("catalogo de materiales")}
       >
-{/*         <CatButtons />
- */}      </Tab>
-      <Tab
+    </Tab>
+    {/*   <Tab
         eventKey="Otros"
         title="Otras pestañas"
         onEnter={() => tabSelected("Otras pestañas")}
-      ></Tab>
+      ></Tab> */}
     </Tabs>
   );
 }

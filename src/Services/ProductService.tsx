@@ -4,7 +4,7 @@ export class ProductServices {
   async AgregarProducto(data: any): Promise<any> {
     try {
       const response: AxiosResponse<any> = await axios.post(
-        `https://ledesma.missingpets.art/productos/nuevoProducto`,
+        `https://ledesma.missingpets.art/materiales/nuevoMaterial`,
         data,
         {
           headers: {
@@ -24,7 +24,7 @@ export class ProductServices {
   async ListarProductos(): Promise<any> {
     try {
       const response: AxiosResponse<any> = await axios.get(
-        `https://ledesma.missingpets.art/productos/listarTodos`,
+        `https://ledesma.missingpets.art/materiales/listarTodos`,
         {
           headers: {
             "Access-Control-Allow-Origin": "*",
