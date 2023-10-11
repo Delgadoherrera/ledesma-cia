@@ -89,11 +89,15 @@ export default function ModalList({
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {configModal.tittle}
           </Typography>
-          {configModal.action === "editMaterial" && <EditMaterial id={configModal.element.id} handleClose={handleClose} />}
-          {/*           <p>descripcion: {configModal.element.descripcion}</p>
-           */}{" "}
-          <p>id:{configModal.element.id}</p>
-          <Button onClick={(e) => handleActions("accept")}>Aceptar</Button>
+          {configModal.action === "editMaterial" && (
+            <EditMaterial
+              id={configModal.element.id}
+              handleClose={handleClose}
+            />
+          )}
+          {configModal.action !== "editMaterial" && (
+            <Button onClick={(e) => handleActions("accept")}>Aceptar</Button>
+          )}
           <Button onClick={() => closeModal(false)}>Cancelar</Button>
         </Box>
       </Modal>
