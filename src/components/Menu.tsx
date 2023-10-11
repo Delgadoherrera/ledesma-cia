@@ -55,8 +55,8 @@ const appPages: AppPage[] = [
     mdIcon: body,
   }, */
   {
-    title: "Stock",
-    url: "/page/Stock",
+    title: "Catalogos",
+    url: "/page/Catalogos",
     iosIcon: hammer,
     mdIcon: hammer,
   },

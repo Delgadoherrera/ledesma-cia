@@ -1,4 +1,4 @@
-export interface Product {
+export interface Materiales {
   descripcion: string;
   unidadMedida: string;
   medida: string;

@@ -8,10 +8,10 @@ interface ContainerProps {
 
 const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   switch (name) {
-    case "Stock":
+    case "Catalogos":
       return (
         <IonContent>
-          <Stock name={"stock"} />
+          <Stock name={"Catalogos"} />
         </IonContent>
       );
       break;

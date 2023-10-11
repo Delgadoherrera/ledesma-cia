@@ -25,13 +25,6 @@ export default function BasicTable({
   const [showMopdal, setShowModal] = React.useState(false);
   const [todo, setTodo] = React.useState("");
   const [element, setElement] = React.useState<Materiales | null>(null);
-  const [configModal, setConfigModal] = React.useState({
-    action: "",
-    tittle: "",
-    bodyReq: "",
-    element: element,
-  });
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -45,29 +38,14 @@ export default function BasicTable({
   const handleAction = (e: any, action: any, element: Materiales) => {
     switch (action) {
       case "deleteMaterial":
+        setElement(element); // Almacena el elemento a eliminar
         setShowModal(true);
-        setConfigModal({
-          ...configModal,
-          bodyReq: "Deseas eliminar este material?",
-          tittle: "Eliminar material",
-          action: "deleteMaterial",
-        });
-
-        break;
-      case "editMaterial":
-        setShowModal(true);
-        setConfigModal({
-          ...configModal,
-          bodyReq: "Editar material?",
-          tittle: "Editar material",
-          action: "editMaterial",
-        });
-
         break;
       default:
         break;
     }
   };
+  console.log("products", products);
   React.useEffect(() => {
     productService.ListarProductos().then((data) => {
       setProducts(data);
@@ -82,7 +60,6 @@ export default function BasicTable({
           tittle="Eliminar material?"
           bodyReq={`eliminar?`}
           element={element}
-          configModal={configModal}
         />
       )}
 
@@ -102,7 +79,7 @@ export default function BasicTable({
           </TableHead>
           <TableBody>
             {Array.isArray(products) &&
-              products.map((row, index) => (
+              products.map((row,index) => (
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -122,14 +99,7 @@ export default function BasicTable({
                     <Button>
                       <div>
                         <IonIcon
-                          onClick={(e: any) => {
-                            handleClick(e);
-                            setElement(row);
-                            setConfigModal({
-                              ...configModal,
-                              element: row,
-                            });
-                          }}
+                          onClick={(e: any) => handleClick(e)}
                           icon={menu}
                         ></IonIcon>
                         <Menu
@@ -141,25 +111,10 @@ export default function BasicTable({
                             "aria-labelledby": "basic-button",
                           }}
                         >
-                          <MenuItem
-                            onClick={(e) => {
-                              setTodo("editMaterial");
-                              setConfigModal({
-                                ...configModal,
-                                action: "editMaterial",
-                              });
-                              handleAction(e, "editMaterial", row);
-                            }}
-                          >
-                            Editar
-                          </MenuItem>
+                          <MenuItem onClick={handleClose}>Editar</MenuItem>
                           <MenuItem
                             onClick={(e) => {
                               setTodo("deleteMaterial");
-                              setConfigModal({
-                                ...configModal,
-                                action: "deleteMaterial",
-                              });
                               handleAction(e, "deleteMaterial", row);
                             }}
                           >
