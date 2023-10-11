@@ -2,15 +2,8 @@ import * as React from "react";
 1;
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextareaAutosize,
-} from "@mui/material";
-import { ButtonBase } from "@mui/material";
-import { IonBreadcrumb, IonHeader, IonItem } from "@ionic/react";
+import { Button, MenuItem, Select } from "@mui/material";
+
 import { ProductServices } from "../../Services/ProductService";
 
 export default function CargaMateriales({
