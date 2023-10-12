@@ -6,24 +6,25 @@ USE ledesmaCia;
 CREATE TABLE IF NOT EXISTS catalogo_material (
   id INT NOT NULL AUTO_INCREMENT,
   descripcion TEXT NOT NULL, 
-  unidadMedida VARCHAR(20),
-  medida VARCHAR(40), 
+  unidadMedida VARCHAR(20) NOT NULL,
+  medida VARCHAR(40) NOT NULL, 
   PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS compra_material (
   idCompra INT NOT NULL AUTO_INCREMENT,
-  idMaterial INT,  
-  fechaCompra DATE,
-  precio DECIMAL(8, 2),
+  idMaterial INT NOT NULL,  
+  fechaCompra DATE NOT NULL,
+  precioPesos DECIMAL(8, 2),
+  precioDolar DECIMAL(8, 2),
   PRIMARY KEY (idCompra),
   FOREIGN KEY (idMaterial) REFERENCES catalogo_material(id)  
 );
 
 CREATE TABLE IF NOT EXISTS cotizacion (
-  idCotizacion INT,
-  fechaCotizacion DATE,
-  conversion DECIMAL(8, 2),
+  idCotizacion INT NOT NULL AUTO_INCREMENT,
+  fechaCotizacion DATE NOT NULL,
+  conversion DECIMAL(8, 2) NOT NULL,
   PRIMARY KEY (idCotizacion), 
-  FOREIGN KEY (idCotizacion) REFERENCES catalogo_material(id)  
+  FOREIGN KEY (idCotizacion) REFERENCES catalogo_material(id)
 );

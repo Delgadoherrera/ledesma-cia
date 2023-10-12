@@ -80,4 +80,45 @@ export class ProductServices {
       console.error("Error editando material:", error);
     }
   }
+
+  // COMPRAS
+  async comprarMaterial(data: any, id: any): Promise<any> {
+    console.log("PRODUCIT EDIT", data, "IDMATERIAL", id);
+    try {
+      const response: AxiosResponse<any> = await axios.post(
+        `https://ledesma.missingpets.art/materiales/comprar/${id}`,
+        { data: data },
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error editando material:", error);
+    }
+  }
+
+  async ListarCompras(): Promise<any> {
+    try {
+      const response: AxiosResponse<any> = await axios.get(
+        `https://ledesma.missingpets.art/compras/listarTodas`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("response", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error listando materiales:", error);
+      return null;
+    }
+  }
 }

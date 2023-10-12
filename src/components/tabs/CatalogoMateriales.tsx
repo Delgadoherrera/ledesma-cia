@@ -9,11 +9,15 @@ import { useState } from "react";
 function FillExample() {
   const dispatch = useDispatch();
   const [tab, setTab] = useState("");
+
+  const a = (e: any) => {
+    console.log(e);
+  };
   return (
     <>
       <CatalogoButtons tab={setTab} />
       {tab === "Carga de materiales" && <CargaMateriales />}
-      {tab === "Stock disponible" && <ProductList />}
+      {tab === "Stock disponible" && <ProductList closeModal={a} />}
     </>
   );
 }

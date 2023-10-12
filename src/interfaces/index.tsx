@@ -4,3 +4,13 @@ export interface Materiales {
   medida: string;
   id:number;
 }
+
+export interface Compras {
+  idCompra: string;
+  idMaterial: string;
+  fechaCompra: Date;
+  precioDolar:number;
+  precioPesos:number;
+
+}
+

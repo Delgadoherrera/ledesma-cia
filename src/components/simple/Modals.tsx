@@ -7,6 +7,7 @@ import { ButtonBase } from "@mui/material";
 import { IonItem } from "@ionic/react";
 import { ProductServices } from "../../Services/ProductService";
 import EditMaterial from "../gestiones/EditarMaterial";
+import CompraMateriales from "../gestiones/CompraMateriales";
 
 const style = {
   position: "absolute" as "absolute",
@@ -95,6 +96,14 @@ export default function ModalList({
               handleClose={handleClose}
             />
           )}
+
+          {configModal.action === "buyMaterial" && (
+            <CompraMateriales
+              id={configModal.element.id}
+              handleClose={handleClose}
+            />
+          )}
+
           {configModal.action !== "editMaterial" && (
             <Button onClick={(e) => handleActions("accept")}>Aceptar</Button>
           )}

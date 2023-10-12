@@ -15,7 +15,13 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
         </IonContent>
       );
       break;
-
+    case "compras":
+      return (
+        <IonContent>
+          <Stock name={"compras"} />
+        </IonContent>
+      );
+      break;
     default:
       break;
   }

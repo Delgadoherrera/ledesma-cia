@@ -7,24 +7,25 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ProductServices } from "../../Services/ProductService";
-import { Materiales } from "../../interfaces/index";
+import { Compras } from "../../interfaces/index";
 import { IonIcon } from "@ionic/react";
 import { menu, options, optionsOutline, optionsSharp } from "ionicons/icons";
 import { Button } from "primereact/button";
 import { Menu, MenuItem } from "@mui/material";
 import ModalList from "./Modals";
+import axios from "axios";
 
 export default function BasicTable({
   closeModal,
 }: {
   closeModal: (value: any) => void;
 }) {
-  const [products, setProducts] = React.useState<Materiales[]>([]); // Especifica el tipo Product[]
+  const [products, setProducts] = React.useState<Compras[]>([]); // Especifica el tipo Product[]
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [showMopdal, setShowModal] = React.useState(false);
   const [todo, setTodo] = React.useState("");
-  const [element, setElement] = React.useState<Materiales | null>(null);
+  const [element, setElement] = React.useState<Compras | null>(null);
   const [configModal, setConfigModal] = React.useState({
     action: "",
     tittle: "",
@@ -42,7 +43,7 @@ export default function BasicTable({
   };
   const productService = new ProductServices();
 
-  const handleAction = (e: any, action: any, element: Materiales) => {
+  const handleAction = (e: any, action: any, element: Compras) => {
     switch (action) {
       case "deleteMaterial":
         setShowModal(true);
@@ -64,20 +65,21 @@ export default function BasicTable({
         });
 
         break;
-        case "buyMaterial":
-          setShowModal(true);
-          setConfigModal({
-            ...configModal,
-            bodyReq: "Comprar material?",
-            tittle: "Comprar material",
-            action: "buyMaterial",
-          });  
+      case "buyMaterial":
+        setShowModal(true);
+        setConfigModal({
+          ...configModal,
+          bodyReq: "Comprar material?",
+          tittle: "Comprar material",
+          action: "buyMaterial",
+        });
       default:
         break;
     }
   };
   React.useEffect(() => {
-    productService.ListarProductos().then((data) => {
+    productService.ListarCompras().then((data) => {
+      console.log("data", data);
       setProducts(data);
     });
   }, []);
@@ -94,39 +96,38 @@ export default function BasicTable({
         />
       )}
 
-      <TableContainer component={Paper} className="tableMateriales">
+      <TableContainer component={Paper} className="tableCompras">
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Descripción</TableCell>
-
-              <TableCell align="right">Id</TableCell>
-              <TableCell align="right">Medida</TableCell>
-              <TableCell align="right">Unidad medida</TableCell>
-              <TableCell align="right">
+              <TableCell>idMaterial</TableCell>
+              <TableCell align="right">idCompra</TableCell>
+              <TableCell align="right">DOLARES</TableCell>
+              <TableCell align="right">PESOS</TableCell>
+              {/*      <TableCell align="right">
                 <IonIcon icon={options}></IonIcon>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {Array.isArray(products) &&
               products.map((row, index) => (
                 <TableRow
-                  key={row.id}
+                  key={row.idCompra}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row" align="left">
-                    {row.descripcion}
+                    {row.idMaterial}
                   </TableCell>
-                  <TableCell align="right">{row.id}</TableCell>
-                  <TableCell align="right">{row.medida}</TableCell>
+                  <TableCell align="right">{row.idCompra}</TableCell>
+                  <TableCell align="right">{row.precioDolar}</TableCell>
                   <TableCell
                     onClick={() => console.log("clic on table")}
                     align="right"
                   >
-                    {row.unidadMedida}
+                    {row.precioPesos}
                   </TableCell>
-                  <TableCell align="right">
+                  {/*                   <TableCell align="right">
                     <Button>
                       <div>
                         <IonIcon
@@ -188,7 +189,7 @@ export default function BasicTable({
                         </Menu>
                       </div>
                     </Button>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
           </TableBody>

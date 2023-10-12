@@ -2,12 +2,8 @@ import * as React from "react";
 1;
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  MenuItem,
-  Select,
-} from "@mui/material";
-
+import { Button, MenuItem, Select } from "@mui/material";
+import axios from "axios";
 import { ProductServices } from "../../Services/ProductService";
 
 export default function CargaMateriales({
@@ -18,15 +14,19 @@ export default function CargaMateriales({
   id: string;
 }) {
   const [values, setValues] = React.useState({
-    descripcion: "",
+    precioDolar: 0,
+    precioPesos: 0,
     medida: "",
     unidadMedida: "",
   });
+
+  const [valorDolar, setValorDolar] = React.useState(0);
   const productService = new ProductServices();
 
   const limpiarFormulario = () => {
     return setValues({
-      descripcion: "",
+      precioDolar: 0,
+      precioPesos: 0,
       medida: "",
       unidadMedida: "",
     });
@@ -35,15 +35,40 @@ export default function CargaMateriales({
     console.log("values", values);
   }, [values]);
 
+  const objetoFecha = Date.now();
+  const nowDate = new Date(objetoFecha);
+  const fechaMensaje = nowDate.toLocaleDateString("en-ZA");
+
   const handleSend = async (data: any) => {
     console.log("sendEdit", "data", data, "id", id);
     try {
-      const response = await productService.editarMaterial(data, id);
-      console.log("Respuesta de la solicitud:", response);
-      handleClose();
-      response.status === 200 && limpiarFormulario();
+      const response = await axios.get(
+        "https://api.bluelytics.com.ar/v2/latest"
+      );
+      const dolares = response.data;
+      setValorDolar(dolares.blue.value_avg);
+      const val = values.precioPesos / dolares.blue.value_avg;
+
+      const datos = {
+        precioDolar: val,
+        precioPesos: values.precioPesos,
+        medida: values.medida,
+        unidadMedida: values.unidadMedida,
+      };
+      setValues({ ...values, precioDolar: val });
+      try {
+        const response = await productService.comprarMaterial(datos, id);
+        console.log("Respuestasolicitud:", response);
+        handleClose();
+        response.status === 200 && limpiarFormulario();
+      } catch (error) {
+        console.error("Error al realiza:", error);
+      }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
+      console.error(
+        "Error al consultar Dólar Blue:",
+        error
+      );
     }
   };
 
@@ -61,11 +86,11 @@ export default function CargaMateriales({
       >
         <TextField
           id="outlined-basic"
-          label="Descripcion"
-          value={values.descripcion}
+          label="Precio en pesos "
+          value={values.precioPesos}
           variant="outlined"
           onChange={(e) =>
-            setValues({ ...values, descripcion: e.target.value })
+            setValues({ ...values, precioPesos: parseFloat(e.target.value) })
           }
         />
 
@@ -132,8 +157,7 @@ export default function CargaMateriales({
         <Button variant="outlined" onClick={() => handleSend(values)}>
           Enviar
         </Button>
-        {/*         <Button
-          variant="outlined"
+        {/*         <ButtonconsultarDolarBlue
           onClick={(e) => {
             limpiarFormulario();
           }}

@@ -5,29 +5,40 @@ import { useDispatch, useSelector } from "react-redux";
 import CargaMateriales from "./gestiones/CargaMateriales";
 import { useEffect, useState } from "react";
 import CatalogoMateriales from "./tabs/CatalogoMateriales";
+import ComprasNav from "./navMenus/ComprasNav";
+import ComprasList from "./simple/ComprasList";
 
 interface ContainerProps {
   name: string;
 }
 
-const ExploreContainer: React.FC<ContainerProps> = ({}) => {
+const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
   const [tabSelected, setTabSelected] = useState("");
 
+  console.log("namedenames", name);
   useEffect(() => {
     console.log("tab selected", tabSelected);
   }, [tabSelected]);
 
-  const objetoFecha = Date.now();
-  const nowDate = new Date(objetoFecha);
-  let fechaMensaje = nowDate.toLocaleDateString("en-ZA");
+  const a = (a: any) => {
+    console.log("a", a);
+  };
 
-  
   return (
     <>
-      <StockNav tabSelected={setTabSelected} />
+      {name === "Catalogos" && (
+        <>
+          {name === "Catalogos" && <StockNav tabSelected={setTabSelected} />}
+          {tabSelected === "catalogo de materiales" && <CatalogoMateriales />}
+        </>
+      )}
 
-      {tabSelected === "catalogo de materiales" && <CatalogoMateriales />}
-      
+      {name === "compras" && (
+        <>
+          {name === "compras" && <ComprasNav tabSelected={setTabSelected} />}
+          {tabSelected === "compras" && <ComprasList closeModal={a} />}
+        </>
+      )}
     </>
   );
 };
